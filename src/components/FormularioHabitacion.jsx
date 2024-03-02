@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import useProyectos from "../hooks/useProyectos";
+import useHabitacions from "../hooks/useHabitacions";
 import Alerta from "./Alerta";
 
-const FormularioProyecto = () => {
+const FormularioHabitacion = () => {
   const [id, setId] = useState(null);
   const [icono, setIcono] = useState(null);
   const [nombre, setNombre] = useState("");
@@ -12,16 +12,16 @@ const FormularioProyecto = () => {
   const [cliente, setCliente] = useState("");
 
   const params = useParams();
-  const { mostrarAlerta, alerta, submitProyecto, proyecto } = useProyectos();
+  const { mostrarAlerta, alerta, submitHabitacion, habitacion } = useHabitacions();
 
   useEffect(() => {
     if (params.id) {
-      setId(proyecto._id);
-      setIcono(proyecto.icono);
-      setNombre(proyecto.nombre);
-      setDescripcion(proyecto.descripcion);
-      setFechaEntrega(proyecto.fechaEntrega?.split("T")[0]);
-      setCliente(proyecto.cliente);
+      setId(habitacion._id);
+      setIcono(habitacion.icono);
+      setNombre(habitacion.nombre);
+      setDescripcion(habitacion.descripcion);
+      setFechaEntrega(habitacion.fechaEntrega?.split("T")[0]);
+      setCliente(habitacion.cliente);
     }
   }, [params]);
 
@@ -47,7 +47,7 @@ const FormularioProyecto = () => {
     formData.append("cliente", cliente);
 
     // Pasar los datos hacia el provider
-    await submitProyecto(formData);
+    await submitHabitacion(formData);
 
     setId(null);
     setNombre("");
@@ -70,14 +70,14 @@ const FormularioProyecto = () => {
           className="text-gray-700 uppercase font-bold text-sm"
           htmlFor="nombre"
         >
-          Icono de proyecto
+          Icono de habitacion
         </label>
 
         <input
           id="icono"
           type="file"
           className="border w-full p-2 mt-2 placeholder-gray-400 rounded-md"
-          placeholder="Icono de proyecto"
+          placeholder="Icono de habitacion"
           onChange={(e) => setIcono(e.target.files[0])}
         />
       </div>
@@ -86,14 +86,14 @@ const FormularioProyecto = () => {
           className="text-gray-700 uppercase font-bold text-sm"
           htmlFor="nombre"
         >
-          Nombre Proyecto
+          Nombre Habitacion
         </label>
 
         <input
           id="nombre"
           type="text"
           className="border w-full p-2 mt-2 placeholder-gray-400 rounded-md"
-          placeholder="Nombre del Proyecto"
+          placeholder="Nombre del Habitacion"
           value={nombre}
           onChange={(e) => setNombre(e.target.value)}
         />
@@ -110,7 +110,7 @@ const FormularioProyecto = () => {
         <textarea
           id="descripcion"
           className="border w-full p-2 mt-2 placeholder-gray-400 rounded-md"
-          placeholder="Descripción del Proyecto"
+          placeholder="Descripción del Habitacion"
           value={descripcion}
           onChange={(e) => setDescripcion(e.target.value)}
         />
@@ -153,11 +153,11 @@ const FormularioProyecto = () => {
 
       <input
         type="submit"
-        value={id ? "Actualizar Proyecto" : "Crear Proyecto"}
+        value={id ? "Actualizar Habitacion" : "Crear Habitacion"}
         className="bg-sky-600 w-full p-3 uppercase font-bold text-white rounded cursor-pointer hover:bg-sky-700 transition-colors"
       />
     </form>
   );
 };
 
-export default FormularioProyecto;
+export default FormularioHabitacion;

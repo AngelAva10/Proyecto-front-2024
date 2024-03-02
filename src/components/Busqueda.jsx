@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react'
 import { Combobox, Dialog, Transition } from '@headlessui/react'
-import useProyectos from '../hooks/useProyectos'
+import useHabitacions from '../hooks/useHabitacions'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -8,9 +8,9 @@ function classNames(...classes) {
 
 const Busqueda = () => {
     const [ busqueda, setBusqueda ] = useState('')
-    const { buscador, handleBuscador, proyectos } = useProyectos()
+    const { buscador, handleBuscador, habitacions } = useHabitacions()
 
-    const proyectosFiltrados = busqueda === '' ? [] : proyectos.filter(proyecto => proyecto.nombre.toLowerCase().includes(busqueda.toLowerCase()))
+    const habitacionsFiltrados = busqueda === '' ? [] : habitacions.filter(habitacion => habitacion.nombre.toLowerCase().includes(busqueda.toLowerCase()))
     
     return (
         <Transition.Root show={ buscador } as={Fragment} afterLeave={ () => setBusqueda('')  }>
@@ -39,7 +39,7 @@ const Busqueda = () => {
                 <Combobox
                     as="div"
                     className="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all"
-                    onChange={ (proyecto) => (window.location = `/proyectos/${proyecto._id}`) }
+                    onChange={ (habitacion) => (window.location = `/habitacions/${habitacion._id}`) }
                 >
                     <div className="relative">
                         <Combobox.Input
@@ -49,15 +49,15 @@ const Busqueda = () => {
                         />
                     </div>
 
-                    {proyectosFiltrados.length > 0 && (
+                    {habitacionsFiltrados.length > 0 && (
                         <Combobox.Options static className="max-h-72 scroll-py-2 overflow-y-auto py-2 text-sm text-gray-800">
-                            {proyectosFiltrados.map( proyecto => (
+                            {habitacionsFiltrados.map( habitacion => (
                                 <Combobox.Option
-                                    key={proyecto._id}
-                                    value={proyecto}
+                                    key={habitacion._id}
+                                    value={habitacion}
                                     className={({active}) => classNames('cursor-default select-none px-4 py-2', active && 'bg-sky-600 text-white') }
                                 >
-                                    {proyecto.nombre}
+                                    {habitacion.nombre}
                                 </Combobox.Option>
                             ))}
                         </Combobox.Options>

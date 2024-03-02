@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
 import useAuth from '../hooks/useAuth'
-const PreviewProyect = ({proyecto}) => {
+const PreviewProyect = ({habitacion}) => {
   const { auth } = useAuth()
 
-    const { icono, nombre, _id, cliente, creador, descripcion} = proyecto;
+    const { icono, nombre, _id, cliente, creador, descripcion} = habitacion;
 
     return (
         <li key={_id} className="flex justify-between gap-x-6 py-5">

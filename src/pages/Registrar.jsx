@@ -62,7 +62,7 @@ const Registrar = () => {
 
   return (
     <>
-      <h3 className="text-sky-600 font-black text-3xl capitalize text-center">Inicia sesión y administra tus <span className="text-slate-700">proyectos</span></h3>
+      <h3 className="text-sky-600 font-black text-3xl capitalize text-center">Inicia sesión y administra tus <span className="text-slate-700">habitacions</span></h3>
       <form 
         className="my-10 bg-white shadow rounded-lg p-10"
         onSubmit={handleSubmit}

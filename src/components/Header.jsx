@@ -6,17 +6,17 @@ Bars3Icon,
 XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, UserCircleIcon, QueueListIcon } from '@heroicons/react/20/solid'
-import useProyectos from '../hooks/useProyectos'
+import useHabitacions from '../hooks/useHabitacions'
 import useAuth from '../hooks/useAuth'
 import { Fragment, useState } from "react"
 import { useLocation } from 'react-router-dom'
 import Busqueda from "./Busqueda"
-import PreviewProyecto from "./PreviewProyecto";
+import PreviewHabitacion from "./PreviewHabitacion";
 function classNames(...classes) {
 return classes.filter(Boolean).join(' ')
 }
 const Header = () => {
-const { cerrarSesionProyectos, handleBuscador } = useProyectos()
+const { cerrarSesionHabitacions, handleBuscador } = useHabitacions()
 const { cerrarSesionAuth } = useAuth()
 const [ mobileMenuOpen, setMobileMenuOpen] = useState(false)
 const [popover, setPopover ] = useState(false)
@@ -24,20 +24,20 @@ const { auth } = useAuth()
 const {pathname} = useLocation();
 const [path] = pathname.split('/').filter((el) => el !== "");
 const [ busqueda, setBusqueda ] = useState('')
-const { proyectos } = useProyectos()
-const proyectosFiltrados = busqueda === '' ? [] : proyectos.filter(proyecto => proyecto.nombre.toLowerCase().includes(busqueda.toLowerCase()))
+const { habitacions } = useHabitacions()
+const habitacionsFiltrados = busqueda === '' ? [] : habitacions.filter(habitacion => habitacion.nombre.toLowerCase().includes(busqueda.toLowerCase()))
 const handleCerrarSesion = () => {
 cerrarSesionAuth()
-cerrarSesionProyectos()
+cerrarSesionHabitacions()
 localStorage.removeItem('token')
 }
 return (
 <header className="bg-white">
    <nav className="mx-auto flex max-auto items-center justify-between p-6 lg:px-8" aria-label="Global">
       <div className="flex lg:flex-1">
-         <a href="/proyectos" className="-m-1.5 p-1.5">
+         <a href="/habitacions" className="-m-1.5 p-1.5">
             <h4 className='lg:text-4xl md:text-4xl text-2xl text-sky-600 font-black text-center'>
-               ProyectosApp
+               HabitacionsApp
             </h4>
          </a>
       </div>
@@ -100,7 +100,7 @@ return (
             </Transition>
          </Popover>
          <Link
-            to="/proyectos"
+            to="/habitacions"
             className="text-sm font-semibold leading-6 text-gray-900"
             >
          PROYECTOS
@@ -113,7 +113,7 @@ return (
          <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
                <h4 className='text-sky-600 font-black text-center'>
-                  ProyectosApp
+                  HabitacionsApp
                </h4>
             </a>
             <button
@@ -138,25 +138,25 @@ return (
                   <Combobox
                   as="div"
                   className="rounded-lg w-full block p-2 border mt-5 mb-8 text-left"
-                  onChange={ (proyecto) => (window.location = `/proyectos/${proyecto._id}`) }
+                  onChange={ (habitacion) => (window.location = `/habitacions/${habitacion._id}`) }
                   >
                   <div className="relative">
                      <Combobox.Input
                         className="h-8 bg-transparent pl-4 pr-4 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-none sm:text-sm"
-                        placeholder="Buscar Proyecto"
+                        placeholder="Buscar Habitacion"
                         onChange={e =>
                      setBusqueda(e.target.value)}
                      />
                   </div>
-                  {proyectosFiltrados.length > 0 && (
+                  {habitacionsFiltrados.length > 0 && (
                   <Combobox.Options static className="max-h-72 scroll-py-2 overflow-y-auto py-2 text-sm text-gray-800 grid grid-cols-1 divide-y-2">
-                     {proyectosFiltrados.map( proyecto => (
+                     {habitacionsFiltrados.map( habitacion => (
                      <Combobox.Option
-                        key={proyecto._id}
-                        value={proyecto}
+                        key={habitacion._id}
+                        value={habitacion}
                         className={({active}) => classNames('cursor-default select-none px-4 py-2', active && 'bg-sky-600 text-white') }
                         >
-                        {proyecto.nombre}
+                        {habitacion.nombre}
                      </Combobox.Option>
                      ))}
                   </Combobox.Options>
@@ -164,15 +164,15 @@ return (
                   </Combobox>
                   {/*
                   <ul role="list" className="divide-y divide-gray-300">
-                     { proyectos.length ? 
-                     proyectos.map(proyecto => (
-                     <PreviewProyecto 
-                        key={proyecto._id}
-                        proyecto={proyecto}
+                     { habitacions.length ? 
+                     habitacions.map(habitacion => (
+                     <PreviewHabitacion 
+                        key={habitacion._id}
+                        habitacion={habitacion}
                         />
                      ))
                      : 
-                     <p className="text-center text-gray-600 uppercase p-5">No hay proyectos</p>
+                     <p className="text-center text-gray-600 uppercase p-5">No hay habitacions</p>
                      }
                   </ul>
                   */}
@@ -182,10 +182,10 @@ return (
                      </div>
                      <div className="flex-auto">
                         <Link
-                           to="/proyectos"
+                           to="/habitacions"
                            className="block font-semibold text-gray-900 w-24 text-left"
                            >
-                        Ver Proyectos
+                        Ver Habitacions
                         </Link>
                      </div>
                   </div>

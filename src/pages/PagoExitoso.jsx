@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import useProyectos from "../hooks/useProyectos"
+import useHabitacions from "../hooks/useHabitacions"
 
 const PagoExitoso = () => {
-  const { cambiarPremium } = useProyectos()
+  const { cambiarPremium } = useHabitacions()
   const [data, setData] = useState('')
 
   const actualizarPremium = async()=>{
@@ -15,7 +15,7 @@ const PagoExitoso = () => {
   },[])
   return (
   <>
-    <h1>{data ? 'Pago exitoso, ya estás suscripto a la versión premium de ProyectosApp' : ''}</h1>
+    <h1>{data ? 'Pago exitoso, ya estás suscripto a la versión premium de HabitacionsApp' : ''}</h1>
     <h3>{data ? data : ''}</h3>
   </>
   

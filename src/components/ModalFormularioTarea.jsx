@@ -1,6 +1,6 @@
 import { Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import useProyectos from '../hooks/useProyectos'
+import useHabitacions from '../hooks/useHabitacions'
 import Alerta from './Alerta'
 import { useParams } from 'react-router-dom'
 
@@ -19,7 +19,7 @@ const ModalFormularioTarea = () => {
 
     const params = useParams()
 
-    const { modalFormularioTarea, handleModalTarea, mostrarAlerta, alerta, submitTarea, tarea } = useProyectos()
+    const { modalFormularioTarea, handleModalTarea, mostrarAlerta, alerta, submitTarea, tarea } = useHabitacions()
 
     const cambiarNombre = (props) => {
       if(props==='Completo'){
@@ -69,7 +69,7 @@ const ModalFormularioTarea = () => {
         return
       }
 
-      await submitTarea({id, nombre, descripcion, fechaEntrega, prioridad, estado, proyecto: params.id})
+      await submitTarea({id, nombre, descripcion, fechaEntrega, prioridad, estado, habitacion: params.id})
       
       setId('')
       setNombre('')

@@ -45,7 +45,7 @@ const ModalFormularioEditarPerfil = () => {
         if(data.msg === 'Actualizado'){
           navigate("/perfil");
         }
-        // navigate('/proyectos')
+        // navigate('/habitacions')
       } catch (error) {
         setMessage("Error al tratar de actualizar");
       }

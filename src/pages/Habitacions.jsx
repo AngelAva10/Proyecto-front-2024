@@ -1,7 +1,7 @@
 import Alerta from "../components/Alerta";
 import ModalFormularioTarea from "../components/ModalFormularioTarea";
-import PreviewProyecto from "../components/PreviewProyecto";
-import useProyectos from "../hooks/useProyectos"
+import PreviewHabitacion from "../components/PreviewHabitacion";
+import useHabitacions from "../hooks/useHabitacions"
 
 const people = [
   {
@@ -58,25 +58,25 @@ const people = [
   },
 ]
 
-const Proyectos = () => {
+const Habitacions = () => {
 
-  const { proyectos, alerta } = useProyectos()
+  const { habitacions, alerta } = useHabitacions()
   const { msg } = alerta
 
   return (
     <>
-      <h1 className="text-3xl text-gray-500 pb-4"><strong>Listado de Proyectos</strong></h1>
+      <h1 className="text-3xl text-gray-500 pb-4"><strong>Listado de Habitacions</strong></h1>
       {msg && <Alerta alerta={alerta} />}
       <ul role="list" className="divide-y divide-gray-300">
-        { proyectos.length ? 
-           proyectos.map(proyecto => (
-            <PreviewProyecto 
-              key={proyecto._id}
-              proyecto={proyecto}
+        { habitacions.length ? 
+           habitacions.map(habitacion => (
+            <PreviewHabitacion 
+              key={habitacion._id}
+              habitacion={habitacion}
             />))
          : 
          <div>
-          <p className="text-center text-lg uppercase font-bold text-sky-500 pt-10">No hay proyectos</p>
+          <p className="text-center text-lg uppercase font-bold text-sky-500 pt-10">No hay habitacions</p>
           <img className="w-1/2 h-auto m-auto"
          src='https://cdn.dribbble.com/users/363634/screenshots/4200296/attachments/960005/cactus-lendit.jpg?compress=1&resize=400x300&vertical=top'/>
          </div>
@@ -86,4 +86,4 @@ const Proyectos = () => {
   )
 }
 
-export default Proyectos
+export default Habitacions

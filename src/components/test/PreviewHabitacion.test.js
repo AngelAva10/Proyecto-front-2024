@@ -1,17 +1,17 @@
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import "@testing-library/jest-dom/extend-expect";
-import PreviewProyecto from "../PreviewProyecto";
+import PreviewHabitacion from "../PreviewHabitacion";
 
 jest.mock("../../hooks/useAuth", () => ({
   __esModule: true,
   default: () => ({ auth: { _id: "creador-id" } }),
 }));
 
-describe("PreviewProyecto", () => {
-  const proyecto = {
-    _id: "proyecto-id",
-    nombre: "Nombre del proyecto",
+describe("PreviewHabitacion", () => {
+  const habitacion = {
+    _id: "habitacion-id",
+    nombre: "Nombre del habitacion",
     cliente: "Cliente",
     creador: "creador-id",
   };
@@ -19,25 +19,25 @@ describe("PreviewProyecto", () => {
   it("renders correctly", () => {
     render(
       <BrowserRouter>
-        <PreviewProyecto proyecto={proyecto} />
+        <PreviewHabitacion habitacion={habitacion} />
       </BrowserRouter>
     );
 
-    expect(screen.getByText("Nombre del proyecto")).toBeInTheDocument();
+    expect(screen.getByText("Nombre del habitacion")).toBeInTheDocument();
     expect(screen.getByText("Cliente")).toBeInTheDocument();
-    expect(screen.getByText("Ver Proyecto")).toBeInTheDocument();
+    expect(screen.getByText("Ver Habitacion")).toBeInTheDocument();
   });
 
   it("the link points to the correct URL", () => {
     render(
       <BrowserRouter>
-        <PreviewProyecto proyecto={proyecto} />
+        <PreviewHabitacion habitacion={habitacion} />
       </BrowserRouter>
     );
 
-    expect(screen.getByText("Ver Proyecto")).toHaveAttribute(
+    expect(screen.getByText("Ver Habitacion")).toHaveAttribute(
       "href",
-      "/proyecto-id"
+      "/habitacion-id"
     );
   });
 });

@@ -3,12 +3,12 @@ import clienteAxios from "../config/clienteAxios";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
-const ProyectosContext = createContext();
+const HabitacionsContext = createContext();
 
-const ProyectosProvider = ({ children }) => {
-  const [proyectos, setProyectos] = useState([]);
+const HabitacionsProvider = ({ children }) => {
+  const [habitacions, setHabitacions] = useState([]);
   const [alerta, setAlerta] = useState({});
-  const [proyecto, setProyecto] = useState({});
+  const [habitacion, setHabitacion] = useState({});
   const [cargando, setCargando] = useState(false);
   const [modalFormularioTarea, setModalFormularioTarea] = useState(false);
   const [tarea, setTarea] = useState({});
@@ -44,7 +44,7 @@ const ProyectosProvider = ({ children }) => {
     return;
   };
 
-  const obtenerProyectos = async () => {
+  const obtenerHabitacions = async () => {
     try {
       const token = localStorage.getItem("token");
       if (!token) return;
@@ -55,15 +55,15 @@ const ProyectosProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       };
-      const { data } = await clienteAxios("/proyectos", config);
-      setProyectos(data);
+      const { data } = await clienteAxios("/habitacions", config);
+      setHabitacions(data);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    obtenerProyectos();
+    obtenerHabitacions();
   }, [auth]);
 
   const mostrarAlerta = (alerta) => {
@@ -74,16 +74,16 @@ const ProyectosProvider = ({ children }) => {
     }, 5000);
   };
 
-  const submitProyecto = async (proyecto) => {
-    const proyectoId = proyecto.get("id") || "";
-    if (proyectoId && proyectoId !== "") {
-      await editarProyecto(proyecto);
+  const submitHabitacion = async (habitacion) => {
+    const habitacionId = habitacion.get("id") || "";
+    if (habitacionId && habitacionId !== "") {
+      await editarHabitacion(habitacion);
     } else {
-      await nuevoProyecto(proyecto);
+      await nuevoHabitacion(habitacion);
     }
   };
 
-  const editarProyecto = async (proyecto) => {
+  const editarHabitacion = async (habitacion) => {
     try {
       const token = localStorage.getItem("token");
       if (!token) return;
@@ -95,32 +95,32 @@ const ProyectosProvider = ({ children }) => {
       };
 
       const { data } = await clienteAxios.put(
-        `/proyectos/${proyecto.get("id")}`,
-        proyecto,
+        `/habitacions/${habitacion.get("id")}`,
+        habitacion,
         config
       );
 
       // Sincronizar el state
-      const proyectosActualizados = proyectos.map((proyectoState) =>
-        proyectoState._id === data._id ? data : proyectoState
+      const habitacionsActualizados = habitacions.map((habitacionState) =>
+        habitacionState._id === data._id ? data : habitacionState
       );
-      setProyectos(proyectosActualizados);
+      setHabitacions(habitacionsActualizados);
 
       setAlerta({
-        msg: "Proyecto Actualizado Correctamente",
+        msg: "Habitacion Actualizado Correctamente",
         error: false,
       });
 
       setTimeout(() => {
         setAlerta({});
-        navigate("/proyectos");
+        navigate("/habitacions");
       }, 1000);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const nuevoProyecto = async (proyecto) => {
+  const nuevoHabitacion = async (habitacion) => {
     try {
       const token = localStorage.getItem("token");
       if (!token) return;
@@ -131,28 +131,28 @@ const ProyectosProvider = ({ children }) => {
         },
       };
 
-      const { data } = await clienteAxios.post("/proyectos", proyecto, config);
+      const { data } = await clienteAxios.post("/habitacions", habitacion, config);
       if (data.nombre) {
-        setProyectos([...proyectos, data]);
+        setHabitacions([...habitacions, data]);
 
         setAlerta({
-          msg: "Proyecto Creado Correctamente",
+          msg: "Habitacion Creado Correctamente",
           error: false,
         });
 
         setTimeout(() => {
           setAlerta({});
-          navigate("/proyectos");
+          navigate("/habitacions");
         }, 1000);
       } else {
         setAlerta({
-          msg: "Alcanzo el limite de proyectos(5)",
+          msg: "Alcanzo el limite de habitacions(5)",
           error: false,
         });
 
         setTimeout(() => {
           setAlerta({});
-          navigate("/proyectos");
+          navigate("/habitacions");
         }, 2000);
       }
     } catch (error) {
@@ -160,7 +160,7 @@ const ProyectosProvider = ({ children }) => {
     }
   };
 
-  const obtenerProyecto = async (id) => {
+  const obtenerHabitacion = async (id) => {
     setCargando(true);
     try {
       const token = localStorage.getItem("token");
@@ -173,11 +173,11 @@ const ProyectosProvider = ({ children }) => {
         },
       };
 
-      const { data } = await clienteAxios(`/proyectos/${id}`, config);
-      setProyecto(data);
+      const { data } = await clienteAxios(`/habitacions/${id}`, config);
+      setHabitacion(data);
       setAlerta({});
     } catch (error) {
-      navigate("/proyectos");
+      navigate("/habitacions");
       setAlerta({
         msg: error.response.data.msg,
         error: true,
@@ -190,7 +190,7 @@ const ProyectosProvider = ({ children }) => {
     }
   };
 
-  const eliminarProyecto = async (id) => {
+  const eliminarHabitacion = async (id) => {
     try {
       const token = localStorage.getItem("token");
       if (!token) return;
@@ -202,13 +202,13 @@ const ProyectosProvider = ({ children }) => {
         },
       };
 
-      const { data } = await clienteAxios.delete(`/proyectos/${id}`, config);
+      const { data } = await clienteAxios.delete(`/habitacions/${id}`, config);
 
       // Sincronizar el state
-      const proyectosActualizados = proyectos.filter(
-        (proyectoState) => proyectoState._id !== id
+      const habitacionsActualizados = habitacions.filter(
+        (habitacionState) => habitacionState._id !== id
       );
-      setProyectos(proyectosActualizados);
+      setHabitacions(habitacionsActualizados);
 
       setAlerta({
         msg: data.msg,
@@ -217,7 +217,7 @@ const ProyectosProvider = ({ children }) => {
 
       setTimeout(() => {
         setAlerta({});
-        navigate("/proyectos");
+        navigate("/habitacions");
       }, 1000);
     } catch (error) {
       console.log(error);
@@ -250,16 +250,16 @@ const ProyectosProvider = ({ children }) => {
       };
       const { data } = await clienteAxios.post("/tareas", tarea, config);
       if (data.nombre) {
-        const proyectoActualizado = { ...proyecto };
-        proyectoActualizado.tareas = [...proyecto.tareas, data];
+        const habitacionActualizado = { ...habitacion };
+        habitacionActualizado.tareas = [...habitacion.tareas, data];
 
-        setProyecto(proyectoActualizado);
+        setHabitacion(habitacionActualizado);
         setAlerta({});
         setModalFormularioTarea(false);
       } else {
-        const proyectoActualizado = { ...proyecto };
+        const habitacionActualizado = { ...habitacion };
 
-        setProyecto(proyectoActualizado);
+        setHabitacion(habitacionActualizado);
         setModalFormularioTarea(false)
         setAlerta({
             msg:data.msg,
@@ -292,11 +292,11 @@ const ProyectosProvider = ({ children }) => {
         config
       );
         console.log(data, "Edit tarea")
-      const proyectoActualizado = { ...proyecto };
-      proyectoActualizado.tareas = proyectoActualizado.tareas.map(
+      const habitacionActualizado = { ...habitacion };
+      habitacionActualizado.tareas = habitacionActualizado.tareas.map(
         (tareaState) => (tareaState._id === data._id ? data : tareaState)
       );
-      setProyecto(proyectoActualizado);
+      setHabitacion(habitacionActualizado);
       setAlerta({});
       setModalFormularioTarea(false);
     } catch (error) {
@@ -332,10 +332,10 @@ const ProyectosProvider = ({ children }) => {
       );
 
       setModalEliminarTarea(false);
-      if(tarea.proyecto._id){
-        obtenerProyecto(tarea.proyecto._id)
+      if(tarea.habitacion._id){
+        obtenerHabitacion(tarea.habitacion._id)
     }else{
-        obtenerProyecto(tarea.proyecto)
+        obtenerHabitacion(tarea.habitacion)
       }
       setAlerta({
         msg: data.msg,
@@ -362,7 +362,7 @@ const ProyectosProvider = ({ children }) => {
       };
 
       const { data } = await clienteAxios.post(
-        "/proyectos/colaboradores",
+        "/habitacions/colaboradores",
         { email },
         config
       );
@@ -391,7 +391,7 @@ const ProyectosProvider = ({ children }) => {
         },
       };
       const { data } = await clienteAxios.post(
-        `/proyectos/colaboradores/${proyecto._id}`,
+        `/habitacions/colaboradores/${habitacion._id}`,
         email,
         config
       );
@@ -430,19 +430,19 @@ const ProyectosProvider = ({ children }) => {
         },
       };
       const { data } = await clienteAxios.post(
-        `/proyectos/eliminar-colaborador/${proyecto._id}`,
+        `/habitacions/eliminar-colaborador/${habitacion._id}`,
         { id: colaborador._id },
         config
       );
 
-      const proyectoActualizado = { ...proyecto };
+      const habitacionActualizado = { ...habitacion };
 
-      proyectoActualizado.colaboradores =
-        proyectoActualizado.colaboradores.filter(
+      habitacionActualizado.colaboradores =
+        habitacionActualizado.colaboradores.filter(
           (colaboradorState) => colaboradorState._id !== colaborador._id
         );
 
-      setProyecto(proyectoActualizado);
+      setHabitacion(habitacionActualizado);
       setAlerta({
         msg: data.msg,
         error: false,
@@ -462,46 +462,46 @@ const ProyectosProvider = ({ children }) => {
     setBuscador(!buscador);
   };
 
-  const submitTareasProyecto = (tarea) => {
-    const proyectoActualizado = { ...proyecto };
-    proyectoActualizado.tareas = [...proyectoActualizado.tareas, tarea];
-    setProyecto(proyectoActualizado);
+  const submitTareasHabitacion = (tarea) => {
+    const habitacionActualizado = { ...habitacion };
+    habitacionActualizado.tareas = [...habitacionActualizado.tareas, tarea];
+    setHabitacion(habitacionActualizado);
   };
-  const eliminarTareaProyecto = (tarea) => {
+  const eliminarTareaHabitacion = (tarea) => {
     console.log(tarea);
-    const proyectoActualizado = { ...proyecto };
-    proyectoActualizado.tareas = proyectoActualizado.tareas.filter(
+    const habitacionActualizado = { ...habitacion };
+    habitacionActualizado.tareas = habitacionActualizado.tareas.filter(
       (tareaState) => tareaState._id !== tarea._id
     );
-    console.log(proyectoActualizado);
-    setProyecto(proyectoActualizado);
+    console.log(habitacionActualizado);
+    setHabitacion(habitacionActualizado);
   };
 
-  const actualizarTareaProyecto = (tarea) => {
-    const proyectoActualizado = { ...proyecto };
-    proyectoActualizado.tareas = proyectoActualizado.tareas.map((tareaState) =>
+  const actualizarTareaHabitacion = (tarea) => {
+    const habitacionActualizado = { ...habitacion };
+    habitacionActualizado.tareas = habitacionActualizado.tareas.map((tareaState) =>
       tareaState._id === tarea._id ? tarea : tareaState
     );
-    setProyecto(proyectoActualizado);
+    setHabitacion(habitacionActualizado);
   };
 
-  const cerrarSesionProyectos = () => {
-    setProyectos([]);
-    setProyecto({});
+  const cerrarSesionHabitacions = () => {
+    setHabitacions([]);
+    setHabitacion({});
     setAlerta({});
   };
 
   return (
-    <ProyectosContext.Provider
+    <HabitacionsContext.Provider
       value={{
-        proyectos,
+        habitacions,
         mostrarAlerta,
         alerta,
-        submitProyecto,
-        obtenerProyecto,
-        proyecto,
+        submitHabitacion,
+        obtenerHabitacion,
+        habitacion,
         cargando,
-        eliminarProyecto,
+        eliminarHabitacion,
         modalFormularioTarea,
         handleModalTarea,
         submitTarea,
@@ -518,17 +518,17 @@ const ProyectosProvider = ({ children }) => {
         eliminarColaborador,
         buscador,
         handleBuscador,
-        submitTareasProyecto,
-        eliminarTareaProyecto,
-        actualizarTareaProyecto,
-        cerrarSesionProyectos,
+        submitTareasHabitacion,
+        eliminarTareaHabitacion,
+        actualizarTareaHabitacion,
+        cerrarSesionHabitacions,
         cambiarPremium,
       }}
     >
       {children}
-    </ProyectosContext.Provider>
+    </HabitacionsContext.Provider>
   );
 };
-export { ProyectosProvider };
+export { HabitacionsProvider };
 
-export default ProyectosContext;
+export default HabitacionsContext;
