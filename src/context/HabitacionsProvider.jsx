@@ -3,10 +3,10 @@ import clienteAxios from "../config/clienteAxios";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
-const HabitacionsContext = createContext();
+const HabitacionesContext = createContext();
 
-const HabitacionsProvider = ({ children }) => {
-  const [habitacions, setHabitacions] = useState([]);
+const HabitacionesProvider = ({ children }) => {
+  const [habitaciones, setHabitaciones] = useState([]);
   const [alerta, setAlerta] = useState({});
   const [habitacion, setHabitacion] = useState({});
   const [cargando, setCargando] = useState(false);
@@ -44,7 +44,7 @@ const HabitacionsProvider = ({ children }) => {
     return;
   };
 
-  const obtenerHabitacions = async () => {
+  const obtenerHabitaciones = async () => {
     try {
       const token = localStorage.getItem("token");
       if (!token) return;
@@ -55,15 +55,15 @@ const HabitacionsProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       };
-      const { data } = await clienteAxios("/habitacions", config);
-      setHabitacions(data);
+      const { data } = await clienteAxios("/habitaciones", config);
+      setHabitaciones(data);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    obtenerHabitacions();
+    obtenerHabitaciones();
   }, [auth]);
 
   const mostrarAlerta = (alerta) => {
@@ -95,16 +95,16 @@ const HabitacionsProvider = ({ children }) => {
       };
 
       const { data } = await clienteAxios.put(
-        `/habitacions/${habitacion.get("id")}`,
+        `/habitaciones/${habitacion.get("id")}`,
         habitacion,
         config
       );
 
       // Sincronizar el state
-      const habitacionsActualizados = habitacions.map((habitacionState) =>
+      const habitacionesActualizados = habitaciones.map((habitacionState) =>
         habitacionState._id === data._id ? data : habitacionState
       );
-      setHabitacions(habitacionsActualizados);
+      setHabitaciones(habitacionesActualizados);
 
       setAlerta({
         msg: "Habitacion Actualizado Correctamente",
@@ -113,7 +113,7 @@ const HabitacionsProvider = ({ children }) => {
 
       setTimeout(() => {
         setAlerta({});
-        navigate("/habitacions");
+        navigate("/habitaciones");
       }, 1000);
     } catch (error) {
       console.log(error);
@@ -131,9 +131,9 @@ const HabitacionsProvider = ({ children }) => {
         },
       };
 
-      const { data } = await clienteAxios.post("/habitacions", habitacion, config);
+      const { data } = await clienteAxios.post("/habitaciones", habitacion, config);
       if (data.nombre) {
-        setHabitacions([...habitacions, data]);
+        setHabitaciones([...habitaciones, data]);
 
         setAlerta({
           msg: "Habitacion Creado Correctamente",
@@ -142,17 +142,17 @@ const HabitacionsProvider = ({ children }) => {
 
         setTimeout(() => {
           setAlerta({});
-          navigate("/habitacions");
+          navigate("/habitaciones");
         }, 1000);
       } else {
         setAlerta({
-          msg: "Alcanzo el limite de habitacions(5)",
+          msg: "Alcanzo el limite de habitaciones(5)",
           error: false,
         });
 
         setTimeout(() => {
           setAlerta({});
-          navigate("/habitacions");
+          navigate("/habitaciones");
         }, 2000);
       }
     } catch (error) {
@@ -173,11 +173,11 @@ const HabitacionsProvider = ({ children }) => {
         },
       };
 
-      const { data } = await clienteAxios(`/habitacions/${id}`, config);
+      const { data } = await clienteAxios(`/habitaciones/${id}`, config);
       setHabitacion(data);
       setAlerta({});
     } catch (error) {
-      navigate("/habitacions");
+      navigate("/habitaciones");
       setAlerta({
         msg: error.response.data.msg,
         error: true,
@@ -202,13 +202,13 @@ const HabitacionsProvider = ({ children }) => {
         },
       };
 
-      const { data } = await clienteAxios.delete(`/habitacions/${id}`, config);
+      const { data } = await clienteAxios.delete(`/habitaciones/${id}`, config);
 
       // Sincronizar el state
-      const habitacionsActualizados = habitacions.filter(
+      const habitacionesActualizados = habitaciones.filter(
         (habitacionState) => habitacionState._id !== id
       );
-      setHabitacions(habitacionsActualizados);
+      setHabitaciones(habitacionesActualizados);
 
       setAlerta({
         msg: data.msg,
@@ -217,7 +217,7 @@ const HabitacionsProvider = ({ children }) => {
 
       setTimeout(() => {
         setAlerta({});
-        navigate("/habitacions");
+        navigate("/habitaciones");
       }, 1000);
     } catch (error) {
       console.log(error);
@@ -362,7 +362,7 @@ const HabitacionsProvider = ({ children }) => {
       };
 
       const { data } = await clienteAxios.post(
-        "/habitacions/colaboradores",
+        "/habitaciones/colaboradores",
         { email },
         config
       );
@@ -391,7 +391,7 @@ const HabitacionsProvider = ({ children }) => {
         },
       };
       const { data } = await clienteAxios.post(
-        `/habitacions/colaboradores/${habitacion._id}`,
+        `/habitaciones/colaboradores/${habitacion._id}`,
         email,
         config
       );
@@ -430,7 +430,7 @@ const HabitacionsProvider = ({ children }) => {
         },
       };
       const { data } = await clienteAxios.post(
-        `/habitacions/eliminar-colaborador/${habitacion._id}`,
+        `/habitaciones/eliminar-colaborador/${habitacion._id}`,
         { id: colaborador._id },
         config
       );
@@ -485,16 +485,16 @@ const HabitacionsProvider = ({ children }) => {
     setHabitacion(habitacionActualizado);
   };
 
-  const cerrarSesionHabitacions = () => {
-    setHabitacions([]);
+  const cerrarSesionHabitaciones = () => {
+    setHabitaciones([]);
     setHabitacion({});
     setAlerta({});
   };
 
   return (
-    <HabitacionsContext.Provider
+    <HabitacionesContext.Provider
       value={{
-        habitacions,
+        habitaciones,
         mostrarAlerta,
         alerta,
         submitHabitacion,
@@ -521,14 +521,14 @@ const HabitacionsProvider = ({ children }) => {
         submitTareasHabitacion,
         eliminarTareaHabitacion,
         actualizarTareaHabitacion,
-        cerrarSesionHabitacions,
+        cerrarSesionHabitaciones,
         cambiarPremium,
       }}
     >
       {children}
-    </HabitacionsContext.Provider>
+    </HabitacionesContext.Provider>
   );
 };
-export { HabitacionsProvider };
+export { HabitacionesProvider };
 
-export default HabitacionsContext;
+export default HabitacionesContext;

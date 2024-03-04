@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import HabitacionsContext from "../context/HabitacionsProvider";
+import HabitacionesContext from "../context/HabitacionesProvider";
 
-const useHabitacions = () => {
-  return useContext(HabitacionsContext)
+const useHabitaciones = () => {
+  return useContext(HabitacionesContext)
 }
 
-export default useHabitacions
+export default useHabitaciones

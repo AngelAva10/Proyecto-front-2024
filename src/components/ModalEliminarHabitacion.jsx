@@ -1,10 +1,10 @@
 import { Fragment  } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import useHabitacions from '../hooks/useHabitacions'
+import useHabitaciones from '../hooks/useHabitaciones'
 
 const ModalEliminarHabitacion = ({habitacionId, habitacionEliminar = false, setEliminarHabitacion}) => {
 
-    const { eliminarHabitacion } = useHabitacions()
+    const { eliminarHabitacion } = useHabitaciones()
 
     const handleDelete = () =>{
         setEliminarHabitacion(!habitacionEliminar)

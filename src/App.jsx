@@ -6,12 +6,12 @@ import Registrar from "./pages/Registrar";
 import OlvidePassword from "./pages/OlvidePassword";
 import NuevoPassword from "./pages/NuevoPassword";
 import ConfirmarCuenta from "./pages/ConfirmarCuenta";
-import Habitacions from "./pages/Habitacions";
+import Habitaciones from "./pages/Habitaciones";
 import NuevoHabitacion from "./pages/NuevoHabitacion";
 import Habitacion from "./pages/Habitacion";
 import EditarHabitacion from "./pages/EditarHabitacion";
 import { AuthProvider } from "./context/AuthProvider";
-import { HabitacionsProvider } from "./context/HabitacionsProvider";
+import { HabitacionesProvider } from "./context/HabitacionesProvider";
 import Perfil from "./pages/Perfil";
 import EditarPerfil from "./pages/EditarPerfil";
 import PagoExitoso from './pages/PagoExitoso'
@@ -21,7 +21,7 @@ function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <HabitacionsProvider>
+        <HabitacionesProvider>
           <Routes>
             <Route path="/" element={<AuthLayout />}>
               <Route index element={<Login />} />
@@ -34,8 +34,8 @@ function App() {
               <Route path="/confirmar/:id" element={<ConfirmarCuenta />} />
             </Route>
 
-            <Route path="/habitacions" element={<RutaProtegida />}>
-              <Route index element={<Habitacions />} />
+            <Route path="/habitaciones" element={<RutaProtegida />}>
+              <Route index element={<Habitaciones />} />
               <Route path="pago-exitoso" element={<PagoExitoso />} />
               <Route path="servicio-premium" element={<ServicioPremium />} />
               <Route path="crear-habitacion" element={<NuevoHabitacion />} />
@@ -48,7 +48,7 @@ function App() {
               <Route path="editar" element={<EditarPerfil />} />
             </Route>
           </Routes>
-        </HabitacionsProvider>
+        </HabitacionesProvider>
       </AuthProvider>
     </BrowserRouter>
   );

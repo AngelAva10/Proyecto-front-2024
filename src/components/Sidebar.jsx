@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { useState } from 'react'
 import { Combobox} from '@headlessui/react'
 import useAuth from '../hooks/useAuth'
-import useHabitacions from '../hooks/useHabitacions'
+import useHabitaciones from '../hooks/useHabitaciones'
 import Busqueda from "./Busqueda"
 import PreviewHabitacion from "./PreviewHabitacion";
 import {
@@ -19,10 +19,10 @@ const { auth } = useAuth()
 const {pathname} = useLocation();
 const [path] = pathname.split('/').filter((el) => el !== "");
 const [ busqueda, setBusqueda ] = useState('')
-const { habitacions } = useHabitacions()
-const habitacionsFiltrados = busqueda === '' ? [] : habitacions.filter(habitacion => habitacion.nombre.toLowerCase().includes(busqueda.toLowerCase()))
+const { habitaciones } = useHabitaciones()
+const habitacionesFiltrados = busqueda === '' ? [] : habitaciones.filter(habitacion => habitacion.nombre.toLowerCase().includes(busqueda.toLowerCase()))
 return (
-path === 'habitacions' ? 
+path === 'habitaciones' ? 
 <aside className='hidden lg:block lg:w-1/4 lg:py-10 lg:px-4 lg:bg-white lg:text-center'>
    <img
    className="w-24 h-24 rounded-full shadow-lg m-auto"
@@ -44,7 +44,7 @@ path === 'habitacions' ?
    <Combobox
    as="div"
    className="rounded-lg w-full block p-2 border mt-5 mb-8 text-left"
-   onChange={ (habitacion) => (window.location = `/habitacions/${habitacion._id}`) }
+   onChange={ (habitacion) => (window.location = `/habitaciones/${habitacion._id}`) }
    >
    <div className="relative">
       <Combobox.Input
@@ -54,9 +54,9 @@ path === 'habitacions' ?
       setBusqueda(e.target.value)}
       />
    </div>
-   {habitacionsFiltrados.length > 0 && (
+   {habitacionesFiltrados.length > 0 && (
    <Combobox.Options static className="max-h-72 scroll-py-2 overflow-y-auto py-2 text-sm text-gray-800 grid grid-cols-1 divide-y-2">
-      {habitacionsFiltrados.map( habitacion => (
+      {habitacionesFiltrados.map( habitacion => (
       <Combobox.Option
          key={habitacion._id}
          value={habitacion}
@@ -80,8 +80,8 @@ path === 'habitacions' ?
    Premium</Link>
    <Busqueda />
    <ul role="list" className="divide-y divide-gray-300">
-      { habitacions.length ? 
-      habitacions.map(habitacion => (
+      { habitaciones.length ? 
+      habitaciones.map(habitacion => (
       <PreviewHabitacion 
          key={habitacion._id}
          habitacion={habitacion}
@@ -89,7 +89,7 @@ path === 'habitacions' ?
       ))
       : 
       <div>
-         <p className="text-center text-lg uppercase font-bold text-sky-500 pt-10">No hay habitacions</p>
+         <p className="text-center text-lg uppercase font-bold text-sky-500 pt-10">No hay habitaciones</p>
          <img className="w-1/2 h-auto m-auto"
             src='https://cdn.dribbble.com/users/363634/screenshots/4200296/attachments/960005/cactus-lendit.jpg?compress=1&resize=400x300&vertical=top'/>
       </div>

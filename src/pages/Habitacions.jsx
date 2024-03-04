@@ -1,7 +1,7 @@
 import Alerta from "../components/Alerta";
 import ModalFormularioTarea from "../components/ModalFormularioTarea";
 import PreviewHabitacion from "../components/PreviewHabitacion";
-import useHabitacions from "../hooks/useHabitacions"
+import useHabitaciones from "../hooks/useHabitaciones"
 
 const people = [
   {
@@ -58,25 +58,25 @@ const people = [
   },
 ]
 
-const Habitacions = () => {
+const Habitaciones = () => {
 
-  const { habitacions, alerta } = useHabitacions()
+  const { habitaciones, alerta } = useHabitaciones()
   const { msg } = alerta
 
   return (
     <>
-      <h1 className="text-3xl text-gray-500 pb-4"><strong>Listado de Habitacions</strong></h1>
+      <h1 className="text-3xl text-gray-500 pb-4"><strong>Listado de Habitaciones</strong></h1>
       {msg && <Alerta alerta={alerta} />}
       <ul role="list" className="divide-y divide-gray-300">
-        { habitacions.length ? 
-           habitacions.map(habitacion => (
+        { habitaciones.length ? 
+           habitaciones.map(habitacion => (
             <PreviewHabitacion 
               key={habitacion._id}
               habitacion={habitacion}
             />))
          : 
          <div>
-          <p className="text-center text-lg uppercase font-bold text-sky-500 pt-10">No hay habitacions</p>
+          <p className="text-center text-lg uppercase font-bold text-sky-500 pt-10">No hay habitaciones</p>
           <img className="w-1/2 h-auto m-auto"
          src='https://cdn.dribbble.com/users/363634/screenshots/4200296/attachments/960005/cactus-lendit.jpg?compress=1&resize=400x300&vertical=top'/>
          </div>
@@ -86,4 +86,4 @@ const Habitacions = () => {
   )
 }
 
-export default Habitacions
+export default Habitaciones

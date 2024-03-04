@@ -29,7 +29,7 @@ const Login = () => {
       localStorage.setItem('token', data.token)
       setAuth(data)
       setAlerta({})
-      navigate('/habitacions')
+      navigate('/habitaciones')
     } catch (error) {
       setAlerta({
         msg: error.response.data.msg,
@@ -42,7 +42,7 @@ const Login = () => {
 
   return (
     <>
-      <h1 className="text-sky-600 font-black text-3xl capitalize text-center">Inicia sesión y administra tus <span className="text-slate-700">habitacions</span></h1>
+      <h1 className="text-sky-600 font-black text-3xl capitalize text-center">Inicia sesión y administra tus <span className="text-slate-700">habitaciones</span></h1>
       { msg && <Alerta alerta={alerta} />}
       <form
         onSubmit={handleSubmit}

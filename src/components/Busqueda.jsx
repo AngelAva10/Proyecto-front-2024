@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react'
 import { Combobox, Dialog, Transition } from '@headlessui/react'
-import useHabitacions from '../hooks/useHabitacions'
+import useHabitaciones from '../hooks/useHabitaciones'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -8,9 +8,9 @@ function classNames(...classes) {
 
 const Busqueda = () => {
     const [ busqueda, setBusqueda ] = useState('')
-    const { buscador, handleBuscador, habitacions } = useHabitacions()
+    const { buscador, handleBuscador, habitaciones } = useHabitaciones()
 
-    const habitacionsFiltrados = busqueda === '' ? [] : habitacions.filter(habitacion => habitacion.nombre.toLowerCase().includes(busqueda.toLowerCase()))
+    const habitacionesFiltrados = busqueda === '' ? [] : habitaciones.filter(habitacion => habitacion.nombre.toLowerCase().includes(busqueda.toLowerCase()))
     
     return (
         <Transition.Root show={ buscador } as={Fragment} afterLeave={ () => setBusqueda('')  }>
@@ -39,7 +39,7 @@ const Busqueda = () => {
                 <Combobox
                     as="div"
                     className="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all"
-                    onChange={ (habitacion) => (window.location = `/habitacions/${habitacion._id}`) }
+                    onChange={ (habitacion) => (window.location = `/habitaciones/${habitacion._id}`) }
                 >
                     <div className="relative">
                         <Combobox.Input
@@ -49,9 +49,9 @@ const Busqueda = () => {
                         />
                     </div>
 
-                    {habitacionsFiltrados.length > 0 && (
+                    {habitacionesFiltrados.length > 0 && (
                         <Combobox.Options static className="max-h-72 scroll-py-2 overflow-y-auto py-2 text-sm text-gray-800">
-                            {habitacionsFiltrados.map( habitacion => (
+                            {habitacionesFiltrados.map( habitacion => (
                                 <Combobox.Option
                                     key={habitacion._id}
                                     value={habitacion}

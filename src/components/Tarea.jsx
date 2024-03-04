@@ -1,9 +1,9 @@
 import { useState } from "react"
 import { formatearFecha } from "../helpers/formatearFecha"
-import useHabitacions from "../hooks/useHabitacions"
+import useHabitaciones from "../hooks/useHabitaciones"
 const Tarea = ({ tarea }) => {
 
-  const { handleModalEditarTarea } = useHabitacions()
+  const { handleModalEditarTarea } = useHabitaciones()
 
   const { descripcion, nombre, prioridad, fechaEntrega, estado } = tarea
 

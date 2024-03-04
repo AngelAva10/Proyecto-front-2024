@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import useHabitacions from "../hooks/useHabitacions";
+import useHabitaciones from "../hooks/useHabitaciones";
 import Alerta from "./Alerta";
 
 const FormularioHabitacion = () => {
@@ -12,7 +12,7 @@ const FormularioHabitacion = () => {
   const [cliente, setCliente] = useState("");
 
   const params = useParams();
-  const { mostrarAlerta, alerta, submitHabitacion, habitacion } = useHabitacions();
+  const { mostrarAlerta, alerta, submitHabitacion, habitacion } = useHabitaciones();
 
   useEffect(() => {
     if (params.id) {

@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import useHabitacions from "../hooks/useHabitacions";
+import useHabitaciones from "../hooks/useHabitaciones";
 import { useEffect, useState } from "react";
 
 const Perfil = () => {
 
 const { auth,autenticarUsuario } = useAuth();
-const { habitacions } = useHabitacions();
+const { habitaciones } = useHabitaciones();
 useEffect(()=>{
 autenticarUsuario()
 },[])
@@ -20,7 +20,7 @@ return (
    <div className="flex gap-2 my-6">
       <Link
          className='flex uppercase font-bold w-full justify-end mx-4'
-         to={`/habitacions`}
+         to={`/habitaciones`}
          >
       Cerrar
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -40,14 +40,14 @@ return (
       <span className="text-sm text-gray-500">{auth.email}</span>
       <div className="flex mt-4 space-x-3 md:mt-6">
          <div className="text-sm text-gray-500 rounded-lg w-64 h-10 content-center text-center p-2">
-            Cantidad de Habitacions : {habitacions.length}
+            Cantidad de Habitaciones : {habitaciones.length}
          </div>
       </div>
       <Link
-         to="/habitacions"
+         to="/habitaciones"
          className="text-blue-500 font-medium border-2 border-blue-500 rounded-lg w-64 h-10 content-center text-center p-2"
          >
-      Ver Habitacions
+      Ver Habitaciones
       </Link>
       <Link
          to="servicio-premium"

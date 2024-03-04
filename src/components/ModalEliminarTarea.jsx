@@ -1,11 +1,11 @@
 import { Fragment  } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import useHabitacions from '../hooks/useHabitacions'
+import useHabitaciones from '../hooks/useHabitaciones'
 
 
 const ModalEliminarTarea = () => {
 
-    const { modalEliminarTarea, handleModalEliminarTarea, eliminarTarea } = useHabitacions()
+    const { modalEliminarTarea, handleModalEliminarTarea, eliminarTarea } = useHabitaciones()
 
 
     return (

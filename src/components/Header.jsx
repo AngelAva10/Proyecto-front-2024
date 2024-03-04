@@ -6,7 +6,7 @@ Bars3Icon,
 XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, UserCircleIcon, QueueListIcon } from '@heroicons/react/20/solid'
-import useHabitacions from '../hooks/useHabitacions'
+import useHabitaciones from '../hooks/useHabitaciones'
 import useAuth from '../hooks/useAuth'
 import { Fragment, useState } from "react"
 import { useLocation } from 'react-router-dom'
@@ -16,7 +16,7 @@ function classNames(...classes) {
 return classes.filter(Boolean).join(' ')
 }
 const Header = () => {
-const { cerrarSesionHabitacions, handleBuscador } = useHabitacions()
+const { cerrarSesionHabitaciones, handleBuscador } = useHabitaciones()
 const { cerrarSesionAuth } = useAuth()
 const [ mobileMenuOpen, setMobileMenuOpen] = useState(false)
 const [popover, setPopover ] = useState(false)
@@ -24,20 +24,20 @@ const { auth } = useAuth()
 const {pathname} = useLocation();
 const [path] = pathname.split('/').filter((el) => el !== "");
 const [ busqueda, setBusqueda ] = useState('')
-const { habitacions } = useHabitacions()
-const habitacionsFiltrados = busqueda === '' ? [] : habitacions.filter(habitacion => habitacion.nombre.toLowerCase().includes(busqueda.toLowerCase()))
+const { habitaciones } = useHabitaciones()
+const habitacionesFiltrados = busqueda === '' ? [] : habitaciones.filter(habitacion => habitacion.nombre.toLowerCase().includes(busqueda.toLowerCase()))
 const handleCerrarSesion = () => {
 cerrarSesionAuth()
-cerrarSesionHabitacions()
+cerrarSesionHabitaciones()
 localStorage.removeItem('token')
 }
 return (
 <header className="bg-white">
    <nav className="mx-auto flex max-auto items-center justify-between p-6 lg:px-8" aria-label="Global">
       <div className="flex lg:flex-1">
-         <a href="/habitacions" className="-m-1.5 p-1.5">
+         <a href="/habitaciones" className="-m-1.5 p-1.5">
             <h4 className='lg:text-4xl md:text-4xl text-2xl text-sky-600 font-black text-center'>
-               HabitacionsApp
+               HabitacionesApp
             </h4>
          </a>
       </div>
@@ -100,7 +100,7 @@ return (
             </Transition>
          </Popover>
          <Link
-            to="/habitacions"
+            to="/habitaciones"
             className="text-sm font-semibold leading-6 text-gray-900"
             >
          PROYECTOS
@@ -113,7 +113,7 @@ return (
          <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
                <h4 className='text-sky-600 font-black text-center'>
-                  HabitacionsApp
+                  HabitacionesApp
                </h4>
             </a>
             <button
@@ -138,7 +138,7 @@ return (
                   <Combobox
                   as="div"
                   className="rounded-lg w-full block p-2 border mt-5 mb-8 text-left"
-                  onChange={ (habitacion) => (window.location = `/habitacions/${habitacion._id}`) }
+                  onChange={ (habitacion) => (window.location = `/habitaciones/${habitacion._id}`) }
                   >
                   <div className="relative">
                      <Combobox.Input
@@ -148,9 +148,9 @@ return (
                      setBusqueda(e.target.value)}
                      />
                   </div>
-                  {habitacionsFiltrados.length > 0 && (
+                  {habitacionesFiltrados.length > 0 && (
                   <Combobox.Options static className="max-h-72 scroll-py-2 overflow-y-auto py-2 text-sm text-gray-800 grid grid-cols-1 divide-y-2">
-                     {habitacionsFiltrados.map( habitacion => (
+                     {habitacionesFiltrados.map( habitacion => (
                      <Combobox.Option
                         key={habitacion._id}
                         value={habitacion}
@@ -164,15 +164,15 @@ return (
                   </Combobox>
                   {/*
                   <ul role="list" className="divide-y divide-gray-300">
-                     { habitacions.length ? 
-                     habitacions.map(habitacion => (
+                     { habitaciones.length ? 
+                     habitaciones.map(habitacion => (
                      <PreviewHabitacion 
                         key={habitacion._id}
                         habitacion={habitacion}
                         />
                      ))
                      : 
-                     <p className="text-center text-gray-600 uppercase p-5">No hay habitacions</p>
+                     <p className="text-center text-gray-600 uppercase p-5">No hay habitaciones</p>
                      }
                   </ul>
                   */}
@@ -182,10 +182,10 @@ return (
                      </div>
                      <div className="flex-auto">
                         <Link
-                           to="/habitacions"
+                           to="/habitaciones"
                            className="block font-semibold text-gray-900 w-24 text-left"
                            >
-                        Ver Habitacions
+                        Ver Habitaciones
                         </Link>
                      </div>
                   </div>

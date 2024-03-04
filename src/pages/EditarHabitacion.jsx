@@ -1,11 +1,11 @@
-import useHabitacions from "../hooks/useHabitacions"
+import useHabitaciones from "../hooks/useHabitaciones"
 import { useParams } from "react-router-dom"
 import { useEffect  } from "react"
 import FormularioHabitacion from '../components/FormularioHabitacion'
 import { Spinner } from "../components/Spinner"
 const EditarHabitacion = () => {
   const params = useParams();
-    const { obtenerHabitacion, habitacion, cargando, eliminarHabitacion } = useHabitacions()
+    const { obtenerHabitacion, habitacion, cargando, eliminarHabitacion } = useHabitaciones()
   
     useEffect( () => {
       obtenerHabitacion(params.id)
